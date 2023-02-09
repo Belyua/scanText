@@ -38,12 +38,15 @@ async def cmd_start(message):
 
 @dp.message_handler(content_types=[ContentType.PHOTO])
 async def on_photos(message: InputFile) -> None:
+    await message.photo[-1].download('test.jpg')
 
-    photo = message.photo[-1]
-    image_binary = BytesIO()
-    #await bot.download_file(photo.file_id, image_binary)
-    pil_image = np.array(Image.open(image_binary))
-    image = cv2.imread(pil_image)
+    # Load the photo using cv2.imread
+    # photo = message.photo[-1]
+    binary_stream = BytesIO()
+    #bit = np.array(message)
+    # #await bot.download_file(photo.file_id, image_binary)
+    # pil_image = np.array(Image.open(image_binary))
+    image = cv2.imread('test.jpg')
     ratio = image.shape[0] / 500.0
     orig = image.copy()
     image = imutils.resize(image, height=500)
